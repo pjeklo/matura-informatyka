@@ -57,6 +57,7 @@
             position: relative;
             z-index: 2;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            color: white;
         }
 
         header p {
@@ -332,13 +333,14 @@
         <p>Kompendium wiedzy dla maturzystów</p>
     </header>
 
-    <nav class="main-nav">
+     <nav class="main-nav">
         <ul>
             <li><a href="index.html">Strona główna</a></li>
             <li><a href="algorytmy.html">Algorytmy</a></li>
             <li><a href="python.html">Python</a></li>
             <li><a href="excel.html">Excel</a></li>
             <li><a href="access.html" class="active">Access</a></li>
+            <li><a href="systemy-liczbowe.html">Systemy liczbowe</a></li>
         </ul>
     </nav>
 
@@ -567,6 +569,64 @@ WHERE warunek;</code></pre>
                 <li><code>Nz(wyrażenie, wartość_jeśli_null)</code> - zastępuje NULL określoną wartością</li>
             </ul>
         </section>
+
+        <section id="tips" class="section">
+            <h2>Tips – Praktyczne wskazówki do Accessa</h2>
+            <ol>
+                <li>
+                    <strong>Po zaimportowaniu plików dodaj relacje pomiędzy tabelami</strong> – ułatwia to pracę z kreatorem kwerend. Choć może się on wydawać dla programisty mało intuicyjny (dzieje się tam wiele „magii”), to tworzy za nas <code>JOIN</code>y i inne powiązania.
+                </li>
+                <li>
+                    <strong>Możliwości tworzenia kwerend:</strong>
+                    <ul>
+                        <li><b>Projekt kwerendy</b> – łatwiejszy dla prostszych zapytań.</li>
+                        <li><b>Kreator kwerend</b> – przydatne opcje to kwerenda wyszukująca duplikaty i niepasujące dane.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>W kwerendach możesz używać innych kwerend jako parametrów</strong> (np. w wyszukiwaniu niepasujących danych), więc można rozłożyć jeden podpunkt na kilka części, gdyby był on trudny.
+                </li>
+                <li>
+                    <strong>Przy importowaniu baz z datami pamiętaj o ustawieniu poprawnego formatu dla pola daty.</strong>
+                </li>
+                <li>
+                    <strong>Przydatne funkcje tekstowe do warunków:</strong>
+                    <ul>
+                        <li>
+                            <code>LEFT(string, number_of_chars)</code> – zwraca określoną liczbę znaków od lewej.<br>
+                            <i>Parametry:</i> <b>string</b> – tekst wejściowy, <b>number_of_chars</b> – liczba znaków do pobrania.<br>
+                            Jeśli liczba znaków przekracza długość tekstu, zwraca cały tekst.
+                        </li>
+                        <li>
+                            <code>RIGHT(string, number_of_chars)</code> – zwraca określoną liczbę znaków od prawej.<br>
+                            <i>Parametry:</i> <b>string</b> – tekst wejściowy, <b>number_of_chars</b> – liczba znaków do pobrania.<br>
+                            Jeśli liczba znaków przekracza długość tekstu, zwraca cały tekst.
+                        </li>
+                        <li>
+                            <code>LEN(string)</code> – zwraca długość tekstu.<br>
+                            <b>Przykład:</b> <code>SELECT LEN('W3Schools.com');</code>
+                        </li>
+                        <li>
+                            <code>LOWER(string)</code> – zamienia tekst na małe litery.<br>
+                            <b>Przykład:</b> <code>SELECT LOWER('SQL Tutorial is FUN!');</code>
+                        </li>
+                        <li>
+                            <code>UPPER(string)</code> – zamienia tekst na wielkie litery.<br>
+                            <b>Przykład:</b> <code>SELECT UPPER('SQL Tutorial is FUN!');</code>
+                        </li>
+                        <li>
+                            <code>TRIM(string)</code> – usuwa spacje z początku i końca tekstu.<br>
+                            <b>Przykład:</b> <code>SELECT TRIM('     SQL Tutorial!     ') AS TrimmedString;</code><br>
+                            <i>Domyślnie usuwa spacje, ale można też wskazać inne znaki.</i>
+                        </li>
+                        <li>
+                            <code>LTRIM(string)</code> – usuwa spacje z początku tekstu.<br>
+                            <code>RTRIM(string)</code> – usuwa spacje z końca tekstu.
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
     </main>
     
     <div class="navigation-between-parts">
@@ -579,4 +639,4 @@ WHERE warunek;</code></pre>
         <p>&copy; 2023 Materiały do nauki informatyki na maturę</p>
     </footer>
 </body>
-</html> 
+</html>

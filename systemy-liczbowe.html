@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Część 5: Systemy liczbowe</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #f9f9f9;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, #2c3e50, #4a6d8c);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            color: white;
+        }
+        nav.main-nav {
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-radius: 8px;
+            padding: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        nav.main-nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 0.5rem;
+            margin: 0;
+        }
+        nav.main-nav a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        nav.main-nav a:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        nav.main-nav a.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+        h2 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            font-size: 1.2rem;
+            margin: 1.2rem 0 0.8rem;
+            color: var(--secondary-color);
+        }
+        pre {
+            background-color: var(--light-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--secondary-color);
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--light-bg);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 0.95rem;
+        }
+        .section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+        .navigation-between-parts {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+        }
+        .navigation-between-parts a {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .navigation-between-parts a:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            h1 { font-size: 1.6rem; }
+            h2 { font-size: 1.3rem; }
+            h3 { font-size: 1.1rem; }
+            nav.main-nav ul { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+            nav.main-nav a { padding: 8px 12px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Systemy liczbowe – konwersje i przykłady</h1>
+        <p>Praktyczne przykłady konwersji liczb między systemami</p>
+    </header>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html">Strona główna</a></li>
+            <li><a href="algorytmy.html">Algorytmy</a></li>
+            <li><a href="python.html">Python</a></li>
+            <li><a href="excel.html">Excel</a></li>
+            <li><a href="access.html">Access</a></li>
+            <li><a href="systemy-liczbowe.html" class="active">Systemy liczbowe</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="section">
+            <h2>1. Konwersja liczb w konsoli przeglądarki (JavaScript)</h2>
+            <h3>Konwersja liczby na dowolny system (2–36)</h3>
+            <pre><code>(255).toString(2);   // "11111111"  → binarny
+(255).toString(16);  // "ff"        → szesnastkowy
+(255).toString(5);   // "2010"      → piątkowy</code></pre>
+            <h3>Konwersja napisu w danym systemie na dziesiętny</h3>
+            <pre><code>parseInt("2010", 5);     // 255 → z systemu piątkowego
+parseInt("ff", 16);      // 255 → z szesnastkowego
+parseInt("11111111", 2); // 255 → z binarnego</code></pre>
+            <h3>Przykłady działań na liczbach w różnych systemach</h3>
+            <pre><code>(parseInt("2024", 5) + parseInt(1044,5)).toString(5); // "3123"
+(parseInt("2024", 5) - parseInt(1044,5)).toString(5); // "430"</code></pre>
+        </section>
+        <section class="section">
+            <h2>2. Python – przeliczanie liczby dziesiętnej na binarny (zgodne z wytycznymi maturalnymi)</h2>
+            <pre><code>def decimal_to_binary(n):
+    wynik = 0       # Na początku wynik binarny to 0 (jeszcze nic nie policzyliśmy)
+    mnoznik = 1     # Mnożnik pozwala nam "ustawić" kolejne bity na odpowiednim miejscu (1, 10, 100 itd.)
+
+    while n > 0:    # Dopóki liczba n jest większa od zera – wykonujemy pętlę
+        reszta = n % 2           # Dzielimy n przez 2 i zapisujemy resztę – to kolejny bit
+        wynik = wynik + reszta * mnoznik  # Dodajemy ten bit na właściwe miejsce w liczbie binarnej
+        mnoznik = mnoznik * 10   # Przesuwamy się w lewo (kolejne miejsce dziesiętne w binarnym zapisie)
+        n = n // 2               # Dzielimy n przez 2 – przechodzimy do kolejnego bitu
+
+    return wynik     # Zwracamy wynik zapisany jako liczba wyglądająca jak zapis binarny
+</code></pre>
+        </section>
+        <section class="section">
+            <h2>3. Pseudokod – konwersja dziesiętna na binarną</h2>
+            <pre><code>Funkcja KONWERSJA_DZIESIETNA_NA_BINARNA(n)
+    Ustaw wynik ← 0
+    Ustaw mnoznik ← 1
+
+    Dopóki n > 0 wykonuj:
+        reszta ← n MOD 2
+        wynik ← wynik + reszta × mnoznik
+        mnoznik ← mnoznik × 10
+        n ← n DIV 2
+
+    Zwróć wynik
+</code></pre>
+        </section>
+    </main>
+    <div class="navigation-between-parts">
+        <a href="access.html">&laquo; Powrót do części 4</a>
+        <span></span>
+    </div>
+    <footer>
+        <p>Autor: Jan Piekło</p>
+        <p>&copy; 2023 Materiały do nauki informatyki na maturę</p>
+    </footer>
+</body>
+</html>
