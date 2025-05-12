@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Część 4: Access</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, #2c3e50, #4a6d8c);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.1), transparent 80%);
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        nav {
+            margin-bottom: 2rem;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            padding: 5px 10px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 3px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+        
+        nav a:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            margin: 1.2rem 0 0.8rem;
+            color: var(--secondary-color);
+        }
+        
+        h4 {
+            font-size: 1.1rem;
+            margin: 1rem 0 0.6rem;
+            color: var(--accent-color);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--light-bg);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+        }
+        
+        pre {
+            background-color: var(--light-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        a {
+            color: var(--secondary-color);
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #2c3e50, #4a6d8c);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at bottom left, rgba(255,255,255,0.1), transparent 80%);
+            z-index: 1;
+        }
+        
+        footer p {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer p:last-child {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .navigation-between-parts {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+        }
+        
+        .navigation-between-parts a {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .navigation-between-parts a:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .code-block {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--light-bg);
+            padding: 0.5rem;
+            border-radius: 3px;
+            margin-bottom: 1rem;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+        
+        .main-nav {
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-radius: 8px;
+            padding: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 0.5rem;
+            margin: 0;
+        }
+        
+        .main-nav li {
+            margin: 0;
+        }
+        
+        .main-nav a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .main-nav a:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .main-nav a.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
+            pre {
+                padding: 0.7rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav a {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .main-nav ul {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .main-nav a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ściąga z Informatyki na Maturę</h1>
+        <p>Kompendium wiedzy dla maturzystów</p>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html">Strona główna</a></li>
+            <li><a href="algorytmy.html">Algorytmy</a></li>
+            <li><a href="python.html">Python</a></li>
+            <li><a href="excel.html">Excel</a></li>
+            <li><a href="access.html" class="active">Access</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="wstep" class="section">
+            <h1>ŚCIĄGA Z MICROSOFT ACCESS</h1>
+        </section>
+        
+        <section id="tworzenie-zarzadzanie" class="section">
+            <h2>1. TWORZENIE I ZARZĄDZANIE BAZAMI DANYCH</h2>
+            
+            <h3>Tworzenie nowej bazy danych</h3>
+            <ol>
+                <li>Plik → Nowy → Pusta baza danych</li>
+                <li>Podaj nazwę i lokalizację pliku</li>
+                <li>Kliknij "Utwórz"</li>
+            </ol>
+            
+            <h3>Tworzenie tabeli</h3>
+            <ol>
+                <li>Zakładka "Tworzenie" → Tabela</li>
+                <li>Definiowanie pól:
+                    <ul>
+                        <li>Nazwa pola (np. ID_Ucznia, Nazwisko)</li>
+                        <li>Typ danych (Tekst, Liczba, Data/Godzina, Autonumerowanie)</li>
+                        <li>Opis (opcjonalnie)</li>
+                    </ul>
+                </li>
+                <li>Ustawienie klucza podstawowego:
+                    <ul>
+                        <li>Zaznacz pole → Narzędzia tabel → Projektowanie → Klucz podstawowy</li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <h3>Typy danych</h3>
+            <ul>
+                <li><strong>Tekst</strong> - dla krótkich ciągów znaków (do 255 znaków)</li>
+                <li><strong>Memo</strong> - dla długich ciągów znaków</li>
+                <li><strong>Liczba</strong> - dla wartości liczbowych</li>
+                <li><strong>Data/Godzina</strong> - dla dat i czasów</li>
+                <li><strong>Waluta</strong> - dla wartości pieniężnych</li>
+                <li><strong>Autonumerowanie</strong> - automatycznie przypisywane numery (dobry wybór na klucz podstawowy)</li>
+                <li><strong>Tak/Nie</strong> - dla wartości logicznych</li>
+                <li><strong>Obiekt OLE</strong> - dla grafik, plików</li>
+                <li><strong>Hiperłącze</strong> - dla adresów URL</li>
+                <li><strong>Załącznik</strong> - dla załączonych plików</li>
+            </ul>
+        </section>
+        
+        <section id="importowanie-danych" class="section">
+            <h2>2. IMPORTOWANIE DANYCH</h2>
+            
+            <h3>Import z pliku tekstowego/CSV</h3>
+            <ol>
+                <li>Zakładka "Zewnętrzne dane" → Tekst</li>
+                <li>Wybierz plik → Importuj</li>
+                <li>Wybierz typ pliku (rozdzielany/o stałej szerokości)</li>
+                <li>Wybierz separator (przecinek, średnik, tabulator)</li>
+                <li>Określ typy danych dla kolumn</li>
+                <li>Wybierz istniejącą tabelę lub utwórz nową</li>
+                <li>Opcjonalnie: ustaw klucz podstawowy</li>
+            </ol>
+            
+            <h3>Po imporcie</h3>
+            <ol>
+                <li>Sprawdź poprawność danych</li>
+                <li>Dodaj klucz podstawowy, jeśli to konieczne:
+                    <ul>
+                        <li>Otwórz tabelę w widoku projektu</li>
+                        <li>Zaznacz odpowiednie pole</li>
+                        <li>Kliknij ikonę "Klucz podstawowy"</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+        
+        <section id="relacje" class="section">
+            <h2>3. RELACJE MIĘDZY TABELAMI</h2>
+            
+            <h3>Tworzenie relacji</h3>
+            <ol>
+                <li>Narzędzia bazy danych → Relacje</li>
+                <li>Dodaj tabele do widoku relacji (kliknij prawym → Pokaż tabelę)</li>
+                <li>Przeciągnij pole z klucza podstawowego jednej tabeli do pola klucza obcego w drugiej tabeli</li>
+                <li>W oknie dialogowym "Edytuj relacje":
+                    <ul>
+                        <li>Zaznacz "Wymuszaj więzy integralności"</li>
+                        <li>Opcjonalnie: "Kaskadowe aktualizowanie..." i "Kaskadowe usuwanie..."</li>
+                    </ul>
+                </li>
+                <li>Kliknij "Utwórz"</li>
+            </ol>
+            
+            <h3>Typy relacji</h3>
+            <ul>
+                <li><strong>Jeden-do-jednego (1:1)</strong> - każdy rekord w tabeli A jest powiązany z dokładnie jednym rekordem w tabeli B</li>
+                <li><strong>Jeden-do-wielu (1:N)</strong> - każdy rekord w tabeli A może być powiązany z wieloma rekordami w tabeli B</li>
+                <li><strong>Wiele-do-wielu (M:N)</strong> - realizowane przez tabelę łącznikową</li>
+            </ul>
+        </section>
+        
+        <section id="kwerendy" class="section">
+            <h2>4. KWERENDY (ZAPYTANIA)</h2>
+            
+            <h3>Tworzenie kwerendy wybierającej</h3>
+            <ol>
+                <li>Zakładka "Tworzenie" → Kreator kwerend / Projekt kwerendy</li>
+                <li>Dodaj potrzebne tabele</li>
+                <li>Dodaj pola do siatki projektu (kliknij dwukrotnie na nazwę pola)</li>
+                <li>Określ kryteria wyboru w wierszu "Kryteria"</li>
+                <li>Ustaw sortowanie</li>
+                <li>Uruchom kwerendę (przycisk "Uruchom")</li>
+            </ol>
+            
+            <h3>Podstawowe operatory w kryteriach</h3>
+            <ul>
+                <li><code>=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&lt;&gt;</code></li>
+                <li><code>BETWEEN wartość1 AND wartość2</code></li>
+                <li><code>IN (wartość1, wartość2, ...)</code></li>
+                <li><code>LIKE "wzorzec"</code> (gdzie % zastępuje dowolny ciąg znaków, _ zastępuje pojedynczy znak)</li>
+                <li><code>IS NULL</code>, <code>IS NOT NULL</code></li>
+                <li>Operatory logiczne: <code>AND</code>, <code>OR</code>, <code>NOT</code></li>
+            </ul>
+            
+            <h3>Kwerendy z funkcjami agregującymi</h3>
+            <ol>
+                <li>Otwórz kwerendę w widoku projektu</li>
+                <li>Kliknij przycisk "Sumy" na pasku narzędzi</li>
+                <li>W wierszu "Funkcja" wybierz odpowiednią funkcję dla pola:
+                    <ul>
+                        <li><code>Suma</code> - sumuje wartości</li>
+                        <li><code>Średnia</code> - oblicza średnią</li>
+                        <li><code>Min</code> - znajduje wartość minimalną</li>
+                        <li><code>Max</code> - znajduje wartość maksymalną</li>
+                        <li><code>Policz</code> - zlicza wartości</li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <h3>Przykładowe rozwiązanie problemu "Nie zdefiniowana funkcja Maksimum w wyrażeniu"</h3>
+            <ol>
+                <li>Użyj angielskiej nazwy funkcji: <code>Max</code> zamiast <code>Maksimum</code></li>
+                <li>Sprawdź ustawienia regionalne systemu</li>
+                <li>Upewnij się, że format daty jest poprawny (w zależności od ustawień regionalnych)</li>
+            </ol>
+        </section>
+        
+        <section id="sql" class="section">
+            <h2>5. JĘZYK SQL</h2>
+            
+            <h3>Podstawowa struktura zapytania SELECT</h3>
+            <pre><code>SELECT pole1, pole2, pole3
+FROM tabela1
+WHERE warunek
+ORDER BY pole1 [ASC|DESC];</code></pre>
+            
+            <h3>Łączenie tabel (JOIN)</h3>
+            <pre><code>SELECT t1.pole1, t2.pole2
+FROM tabela1 AS t1
+INNER JOIN tabela2 AS t2
+ON t1.klucz = t2.klucz_obcy
+WHERE warunek;</code></pre>
+            
+            <h3>Typy złączeń (JOIN)</h3>
+            <ul>
+                <li><code>INNER JOIN</code> - tylko rekordy z dopasowaniem w obu tabelach</li>
+                <li><code>LEFT JOIN</code> - wszystkie rekordy z lewej tabeli i dopasowane z prawej</li>
+                <li><code>RIGHT JOIN</code> - wszystkie rekordy z prawej tabeli i dopasowane z lewej</li>
+            </ul>
+            
+            <h3>Funkcje agregujące w SQL</h3>
+            <pre><code>SELECT pole1, COUNT(*) AS liczba, AVG(pole2) AS srednia
+FROM tabela
+GROUP BY pole1
+HAVING COUNT(*) > 1
+ORDER BY COUNT(*) DESC;</code></pre>
+            
+            <h3>Kwerenda tworząca nową tabelę</h3>
+            <pre><code>SELECT pole1, pole2 INTO NowaTabelaNazwa
+FROM IstnieTabelaNazwa
+WHERE warunek;</code></pre>
+            
+            <h3>Kwerenda aktualizująca</h3>
+            <pre><code>UPDATE TabelaNazwa
+SET pole1 = wartość1, pole2 = wartość2
+WHERE warunek;</code></pre>
+            
+            <h3>Kwerenda usuwająca</h3>
+            <pre><code>DELETE FROM TabelaNazwa
+WHERE warunek;</code></pre>
+        </section>
+        
+        <section id="funkcje" class="section">
+            <h2>CZĘSTO UŻYWANE FUNKCJE W ACCESSIE</h2>
+            
+            <h3>Tekstowe</h3>
+            <ul>
+                <li><code>Left(tekst, liczba_znaków)</code> - zwraca określoną liczbę znaków od lewej</li>
+                <li><code>Right(tekst, liczba_znaków)</code> - zwraca określoną liczbę znaków od prawej</li>
+                <li><code>Mid(tekst, start, liczba_znaków)</code> - zwraca znaki ze środka tekstu</li>
+                <li><code>Len(tekst)</code> - zwraca długość tekstu</li>
+                <li><code>Trim(tekst)</code> - usuwa spacje z początku i końca</li>
+            </ul>
+            
+            <h3>Datowe</h3>
+            <ul>
+                <li><code>Date()</code> - bieżąca data</li>
+                <li><code>Year(data)</code> - rok z daty</li>
+                <li><code>Month(data)</code> - miesiąc z daty</li>
+                <li><code>Day(data)</code> - dzień z daty</li>
+                <li><code>DateDiff("interwał", data1, data2)</code> - różnica między datami</li>
+            </ul>
+            
+            <h3>Liczbowe</h3>
+            <ul>
+                <li><code>Round(liczba, miejsca_dziesiętne)</code> - zaokrągla liczbę</li>
+                <li><code>Int(liczba)</code> - zwraca część całkowitą liczby</li>
+                <li><code>Abs(liczba)</code> - wartość bezwzględna</li>
+            </ul>
+            
+            <h3>Logiczne</h3>
+            <ul>
+                <li><code>IIf(warunek, wartość_jeśli_prawda, wartość_jeśli_fałsz)</code> - warunkowe zwracanie wartości</li>
+                <li><code>IsNull(wyrażenie)</code> - sprawdza, czy wyrażenie jest NULL</li>
+                <li><code>Nz(wyrażenie, wartość_jeśli_null)</code> - zastępuje NULL określoną wartością</li>
+            </ul>
+        </section>
+    </main>
+    
+    <div class="navigation-between-parts">
+        <a href="excel.html">&laquo; Powrót do części 3</a>
+        <span></span>
+    </div>
+    
+    <footer>
+        <p>Autor: Jan Piekło</p>
+        <p>&copy; 2023 Materiały do nauki informatyki na maturę</p>
+    </footer>
+</body>
+</html> 

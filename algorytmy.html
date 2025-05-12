@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Część 1: Algorytmy</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, #2c3e50, #4a6d8c);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.1), transparent 80%);
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        nav {
+            margin-bottom: 2rem;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            padding: 5px 10px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 3px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+        
+        nav a:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            margin: 1.2rem 0 0.8rem;
+            color: var(--secondary-color);
+        }
+        
+        h4 {
+            font-size: 1.1rem;
+            margin: 1rem 0 0.6rem;
+            color: var(--accent-color);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--light-bg);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+        }
+        
+        pre {
+            background-color: var(--light-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        a {
+            color: var(--secondary-color);
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #2c3e50, #4a6d8c);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at bottom left, rgba(255,255,255,0.1), transparent 80%);
+            z-index: 1;
+        }
+        
+        footer p {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer p:last-child {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .navigation-between-parts {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+        }
+        
+        .navigation-between-parts a {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .navigation-between-parts a:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
+            pre {
+                padding: 0.7rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav a {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .main-nav ul {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .main-nav a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        .code-block {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--light-bg);
+            padding: 0.5rem;
+            border-radius: 3px;
+            margin-bottom: 1rem;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+        
+        .main-nav {
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-radius: 8px;
+            padding: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 0.5rem;
+            margin: 0;
+        }
+        
+        .main-nav li {
+            margin: 0;
+        }
+        
+        .main-nav a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .main-nav a:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .main-nav a.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ściąga z Informatyki na Maturę</h1>
+        <p>Kompendium wiedzy dla maturzystów</p>
+    </header>
+  
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html">Strona główna</a></li>
+            <li><a href="algorytmy.html" class="active">Algorytmy</a></li>
+            <li><a href="python.html">Python</a></li>
+            <li><a href="excel.html">Excel</a></li>
+            <li><a href="access.html">Access</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="wstep" class="section">
+            <h1>ŚCIĄGA Z ALGORYTMÓW</h1>
+        </section>
+        
+        <section id="algorytm-euklidesa" class="section">
+            <h2>1. ALGORYTM EUKLIDESA - NWD</h2>
+            
+            <h3>Cel</h3>
+            <p>Obliczanie największego wspólnego dzielnika dwóch liczb.</p>
+            
+            <h3>Implementacja</h3>
+            <pre><code>def nwd(a, b):
+    while b:
+        a, b = b, a % b
+    return a</code></pre>
+            
+            <h3>Jak to działa</h3>
+            <ol>
+                <li>Jeśli <code>b = 0</code>, to NWD(a,b) = a</li>
+                <li>W przeciwnym wypadku NWD(a,b) = NWD(b, a mod b)</li>
+                <li>Powtarzamy aż <code>b = 0</code></li>
+            </ol>
+            
+            <h3>Złożoność</h3>
+            <ul>
+                <li>Czasowa: O(log(min(a,b)))</li>
+                <li>Pamięciowa: O(1)</li>
+            </ul>
+            
+            <h3>Zastosowania</h3>
+            <ul>
+                <li>Skracanie ułamków</li>
+                <li>Obliczanie NWW (najmniejszej wspólnej wielokrotności): NWW(a,b) = (a*b)/NWD(a,b)</li>
+                <li>Kryptografia (algorytm RSA)</li>
+            </ul>
+        </section>
+        
+        <section id="sito-eratostenesa" class="section">
+            <h2>2. SITO ERATOSTENESA</h2>
+            
+            <h3>Cel</h3>
+            <p>Wyznaczanie wszystkich liczb pierwszych mniejszych lub równych n.</p>
+            
+            <h3>Implementacja</h3>
+            <pre><code>def sito(n):
+    p = [True] * (n + 1)
+    for i in range(2, int(n**0.5) + 1):
+        if p[i]:
+            for j in range(i*i, n + 1, i):
+                p[j] = False
+    return [i for i in range(2, n + 1) if p[i]]</code></pre>
+            
+            <h3>Jak to działa</h3>
+            <ol>
+                <li>Tworzymy tablicę <code>p</code> o rozmiarze n+1, początkowo wszystkie wartości są True</li>
+                <li>Zaczynając od 2, dla każdej liczby pierwszej oznaczamy wszystkie jej wielokrotności jako nie-pierwsze</li>
+                <li>Wystarczy sprawdzić liczby do pierwiastka z n</li>
+                <li>Wynikiem są indeksy tablicy o wartości True</li>
+            </ol>
+            
+            <h3>Złożoność</h3>
+            <ul>
+                <li>Czasowa: O(n log log n)</li>
+                <li>Pamięciowa: O(n)</li>
+            </ul>
+            
+            <h3>Zastosowania</h3>
+            <ul>
+                <li>Wyznaczanie dużej liczby liczb pierwszych</li>
+                <li>Testowanie pierwszości liczb</li>
+                <li>Rozwiązywanie zadań kombinatorycznych</li>
+            </ul>
+        </section>
+        
+        <section id="ciag-fibonacciego" class="section">
+            <h2>3. CIĄG FIBONACCIEGO (ITERACYJNIE)</h2>
+            
+            <h3>Cel</h3>
+            <p>Obliczanie n-tego wyrazu ciągu Fibonacciego.</p>
+            
+            <h3>Implementacja</h3>
+            <pre><code>def fib(n):
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a</code></pre>
+            
+            <h3>Jak to działa</h3>
+            <ol>
+                <li>Zaczynamy od F(0)=0 i F(1)=1</li>
+                <li>Kolejne wyrazy obliczamy jako sumę dwóch poprzednich</li>
+                <li>Po n krokach otrzymujemy F(n)</li>
+            </ol>
+            
+            <h3>Złożoność</h3>
+            <ul>
+                <li>Czasowa: O(n)</li>
+                <li>Pamięciowa: O(1)</li>
+            </ul>
+            
+            <h3>Zastosowania</h3>
+            <ul>
+                <li>Analiza struktur naturalnych</li>
+                <li>Algorytmy optymalizacyjne</li>
+                <li>Problem podziału</li>
+            </ul>
+        </section>
+        
+        <section id="sortowanie" class="section">
+            <h2>4. SORTOWANIE</h2>
+            
+            <h3>4a. SORTOWANIE BĄBELKOWE</h3>
+            
+            <h4>Cel</h4>
+            <p>Sortowanie tablicy przez porównywanie i zamianę sąsiednich elementów.</p>
+            
+            <h4>Implementacja</h4>
+            <pre><code>def bubble(t):
+    n = len(t)
+    for i in range(n):
+        for j in range(n - 1 - i):
+            if t[j] > t[j + 1]:
+                t[j], t[j + 1] = t[j + 1], t[j]</code></pre>
+            
+            <h4>Jak to działa</h4>
+            <ol>
+                <li>Przechodzimy przez tablicę n razy</li>
+                <li>W każdym przejściu porównujemy sąsiednie pary elementów</li>
+                <li>Jeśli są w złej kolejności, zamieniamy je miejscami</li>
+                <li>Po każdym przejściu największy element jest już na swoim miejscu</li>
+            </ol>
+            
+            <h4>Złożoność</h4>
+            <ul>
+                <li>Czasowa: O(n²) - najgorszy i średni przypadek</li>
+                <li>Pamięciowa: O(1)</li>
+            </ul>
+            
+            <h3>4b. SORTOWANIE PRZEZ WSTAWIANIE</h3>
+            
+            <h4>Cel</h4>
+            <p>Sortowanie tablicy przez wstawianie każdego elementu w odpowiednie miejsce.</p>
+            
+            <h4>Implementacja</h4>
+            <pre><code>def insertion(t):
+    for i in range(1, len(t)):
+        x = t[i]
+        j = i - 1
+        while j >= 0 and t[j] > x:
+            t[j + 1] = t[j]
+            j -= 1
+        t[j + 1] = x</code></pre>
+            
+            <h4>Jak to działa</h4>
+            <ol>
+                <li>Zaczynamy od elementu t[1]</li>
+                <li>Porównujemy go z elementami na lewo od niego</li>
+                <li>Przesuwamy większe elementy w prawo</li>
+                <li>Wstawiamy element w odpowiednie miejsce</li>
+                <li>Powtarzamy dla każdego elementu</li>
+            </ol>
+            
+            <h4>Złożoność</h4>
+            <ul>
+                <li>Czasowa: O(n²) - najgorszy i średni przypadek, O(n) - najlepszy przypadek</li>
+                <li>Pamięciowa: O(1)</li>
+            </ul>
+            
+            <h3>4c. SZYBKIE SORTOWANIE (QUICKSORT)</h3>
+            
+            <h4>Cel</h4>
+            <p>Sortowanie tablicy za pomocą strategii "dziel i zwyciężaj".</p>
+            
+            <h4>Implementacja</h4>
+            <pre><code>def quick(t):
+    if len(t) <= 1:
+        return t
+    p = t[0]
+    l = [x for x in t[1:] if x < p]
+    r = [x for x in t[1:] if x >= p]
+    return quick(l) + [p] + quick(r)</code></pre>
+            
+            <h4>Jak to działa</h4>
+            <ol>
+                <li>Wybieramy element pivot (tutaj pierwszy element)</li>
+                <li>Dzielimy tablicę na dwie części:
+                    <ul>
+                        <li>elementy mniejsze od pivota</li>
+                        <li>elementy większe lub równe pivotowi</li>
+                    </ul>
+                </li>
+                <li>Rekurencyjnie sortujemy obie części</li>
+                <li>Łączymy posortowane części z pivotem</li>
+            </ol>
+            
+            <h4>Złożoność</h4>
+            <ul>
+                <li>Czasowa: O(n log n) - średni przypadek, O(n²) - najgorszy przypadek</li>
+                <li>Pamięciowa: O(log n) - głębokość rekursji</li>
+            </ul>
+        </section>
+        
+        <section id="dodatkowe-algorytmy" class="section">
+            <h2>5. DODATKOWE ALGORYTMY WARTE ZAPAMIĘTANIA</h2>
+            
+            <h3>5a. WYSZUKIWANIE BINARNE</h3>
+            <pre><code>def binary_search(t, x):
+    left, right = 0, len(t) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if t[mid] == x:
+            return mid
+        elif t[mid] < x:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1  # element nie znaleziony</code></pre>
+            
+            <h3>5b. POTĘGOWANIE SZYBKIE</h3>
+            <pre><code>def power(a, n):
+    if n == 0:
+        return 1
+    if n % 2 == 0:
+        return power(a*a, n//2)
+    else:
+        return a * power(a, n-1)</code></pre>
+            
+            <h3>5c. WYSZUKIWANIE ELEMENTU MAKSYMALNEGO/MINIMALNEGO</h3>
+            <pre><code>def find_max(t):
+    maxval = t[0]
+    maxidx = 0
+    for i in range(1, len(t)):
+        if t[i] > maxval:
+            maxval = t[i]
+            maxidx = i
+    return maxidx, maxval</code></pre>
+            
+            <h3>5d. LICZBY PIERWSZE - TEST PIERWSZOŚCI</h3>
+            <pre><code>def is_prime(n):
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+        i += 6
+    return True</code></pre>
+            
+            <h3>5e. KONWERSJA LICZB MIĘDZY SYSTEMAMI</h3>
+            <pre><code># Konwersja z systemu dziesiętnego na dowolny
+def to_base(n, base):
+    digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    result = ""
+    while n > 0:
+        result = digits[n % base] + result
+        n //= base
+    return result or "0"
+
+# Konwersja z dowolnego systemu na dziesiętny
+def from_base(s, base):
+    digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    result = 0
+    for digit in s:
+        result = result * base + digits.index(digit)
+    return result</code></pre>
+        </section>
+    </main>
+    
+    <div class="navigation-between-parts">
+        <span></span>
+        <a href="python.html">Przejdź do części 2 &raquo;</a>
+    </div>
+    
+    <footer>
+        <p>Autor: Jan Piekło</p>
+        <p>&copy; 2023 Materiały do nauki informatyki na maturę</p>
+    </footer>
+</body>
+</html> 

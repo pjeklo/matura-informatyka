@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Część 3: Excel</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, #2c3e50, #4a6d8c);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.1), transparent 80%);
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        nav {
+            margin-bottom: 2rem;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            padding: 5px 10px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 3px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+        
+        nav a:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+            color: var(--primary-color);
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            margin: 1.2rem 0 0.8rem;
+            color: var(--secondary-color);
+        }
+        
+        h4 {
+            font-size: 1.1rem;
+            margin: 1rem 0 0.6rem;
+            color: var(--accent-color);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--light-bg);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+        }
+        
+        pre {
+            background-color: var(--light-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        a {
+            color: var(--secondary-color);
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #2c3e50, #4a6d8c);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at bottom left, rgba(255,255,255,0.1), transparent 80%);
+            z-index: 1;
+        }
+        
+        footer p {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer p:last-child {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .navigation-between-parts {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+        }
+        
+        .navigation-between-parts a {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .navigation-between-parts a:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .code-block {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--light-bg);
+            padding: 0.5rem;
+            border-radius: 3px;
+            margin-bottom: 1rem;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+        
+        .main-nav {
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-radius: 8px;
+            padding: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 0.5rem;
+            margin: 0;
+        }
+        
+        .main-nav li {
+            margin: 0;
+        }
+        
+        .main-nav a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .main-nav a:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .main-nav a.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
+            pre {
+                padding: 0.7rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav a {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .main-nav ul {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .main-nav a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ściąga z Informatyki na Maturę</h1>
+        <p>Kompendium wiedzy dla maturzystów</p>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html">Strona główna</a></li>
+            <li><a href="algorytmy.html">Algorytmy</a></li>
+            <li><a href="python.html">Python</a></li>
+            <li><a href="excel.html" class="active">Excel</a></li>
+            <li><a href="access.html">Access</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="wstep" class="section">
+            <h1>ŚCIĄGA Z MICROSOFT EXCEL</h1>
+        </section>
+        
+        <section id="funkcje-logiczne" class="section">
+            <h2>1. FUNKCJE LOGICZNE I WARUNKOWE</h2>
+            
+            <h3>JEŻELI</h3>
+            <div class="code-block">=JEŻELI(warunek; wartość_jeśli_prawda; wartość_jeśli_fałsz)</div>
+            <p>Przykład: <code>=JEŻELI(A1>50;"Zdał";"Nie zdał")</code></p>
+            
+            <h3>LICZ.JEŻELI</h3>
+            <div class="code-block">=LICZ.JEŻELI(zakres; kryteria)</div>
+            <p>Przykład: <code>=LICZ.JEŻELI(A1:A10;">50")</code> - zlicza wartości większe od 50</p>
+            
+            <h3>LICZ.WARUNKI</h3>
+            <div class="code-block">=LICZ.WARUNKI(zakres1; kryteria1; [zakres2; kryteria2]...)</div>
+            <p>Przykład: <code>=LICZ.WARUNKI(A1:A10;">50";B1:B10;"Warszawa")</code> - zlicza wiersze, gdzie wartość w kolumnie A > 50 i wartość w kolumnie B to "Warszawa"</p>
+            
+            <h3>SUMA.JEŻELI</h3>
+            <div class="code-block">=SUMA.JEŻELI(zakres_kryteriów; kryteria; [zakres_sumowania])</div>
+            <p>Przykład: <code>=SUMA.JEŻELI(B1:B10;"Warszawa";C1:C10)</code> - sumuje wartości w kolumnie C, gdzie w kolumnie B jest "Warszawa"</p>
+            
+            <h3>SUMA.WARUNKÓW</h3>
+            <div class="code-block">=SUMA.WARUNKÓW(zakres_sumowania; zakres1; kryteria1; [zakres2; kryteria2]...)</div>
+            <p>Przykład: <code>=SUMA.WARUNKÓW(C1:C10;A1:A10;">50";B1:B10;"Warszawa")</code> - sumuje wartości w kolumnie C, gdzie A > 50 i B = "Warszawa"</p>
+        </section>
+        
+        <section id="funkcje-statystyczne" class="section">
+            <h2>2. FUNKCJE STATYSTYCZNE</h2>
+            
+            <ul>
+                <li><code>=MAX(zakres)</code> - największa wartość</li>
+                <li><code>=MIN(zakres)</code> - najmniejsza wartość</li>
+                <li><code>=ŚREDNIA(zakres)</code> - średnia arytmetyczna</li>
+                <li><code>=MEDIANA(zakres)</code> - wartość środkowa</li>
+                <li><code>=LICZ(zakres)</code> - liczba komórek zawierających liczby</li>
+                <li><code>=LICZ.PUSTE(zakres)</code> - liczba pustych komórek</li>
+                <li><code>=LICZ.NIEPUSTE(zakres)</code> - liczba niepustych komórek</li>
+            </ul>
+        </section>
+        
+        <section id="wyszukiwanie-danych" class="section">
+            <h2>3. WYSZUKIWANIE DANYCH</h2>
+            
+            <h3>WYSZUKAJ.PIONOWO (VLOOKUP)</h3>
+            <div class="code-block">=WYSZUKAJ.PIONOWO(wartość_szukana; tabela; nr_kolumny; [typ_wyszukiwania])</div>
+            <p>Przykład: <code>=WYSZUKAJ.PIONOWO(A1;$D$1:$F$10;2;FAŁSZ)</code> - szuka wartości z A1 w pierwszej kolumnie zakresu D1:F10 i zwraca wartość z drugiej kolumny</p>
+            
+            <h3>INDEKS + PODAJ.POZYCJĘ</h3>
+            <div class="code-block">=INDEKS(tablica; PODAJ.POZYCJĘ(wartość_szukana; zakres_wyszukiwania; [typ_dopasowania]))</div>
+            <p>Przykład: <code>=INDEKS(C1:C10;PODAJ.POZYCJĘ("Jan";A1:A10;0))</code> - zwraca wartość z kolumny C w wierszu, gdzie w kolumnie A jest "Jan"</p>
+        </section>
+        
+        <section id="import-przetwarzanie" class="section">
+            <h2>4. IMPORTOWANIE I PRZETWARZANIE DANYCH</h2>
+            
+            <h3>Import z CSV</h3>
+            <ol>
+                <li>Zakładka Dane → Z tekstu</li>
+                <li>Wybierz plik CSV</li>
+                <li>Wybierz odpowiedni separator (przecinek, średnik)</li>
+                <li>Ustaw typy danych w kolumnach</li>
+                <li>Zakończ import</li>
+            </ol>
+            
+            <h3>Filtrowanie</h3>
+            <ol>
+                <li>Zaznacz zakres danych</li>
+                <li>Dane → Filtr</li>
+                <li>Kliknij strzałkę w nagłówku kolumny</li>
+                <li>Wybierz kryteria filtrowania</li>
+            </ol>
+            
+            <h3>Sortowanie</h3>
+            <ol>
+                <li>Zaznacz zakres danych</li>
+                <li>Dane → Sortuj</li>
+                <li>Wybierz kolumnę i sposób sortowania (rosnąco/malejąco)</li>
+            </ol>
+        </section>
+        
+        <section id="tworzenie-wykresow" class="section">
+            <h2>5. TWORZENIE WYKRESÓW</h2>
+            
+            <h3>Podstawowe kroki</h3>
+            <ol>
+                <li>Zaznacz dane</li>
+                <li>Wstaw → Wykres → wybierz typ wykresu</li>
+                <li>Dodaj tytuł wykresu: Narzędzia wykresów → Projekt → Dodaj element wykresu → Tytuł wykresu</li>
+                <li>Dodaj etykiety osi: Narzędzia wykresów → Projekt → Dodaj element wykresu → Tytuły osi</li>
+                <li>Dodaj etykiety danych: Narzędzia wykresów → Projekt → Dodaj element wykresu → Etykiety danych</li>
+            </ol>
+        </section>
+        
+        <section id="tabele-przestawne" class="section">
+            <h2>6. TABELE PRZESTAWNE</h2>
+            
+            <h3>Tworzenie tabeli przestawnej</h3>
+            <ol>
+                <li>Zaznacz dane</li>
+                <li>Wstaw → Tabela przestawna</li>
+                <li>Wybierz miejsce umieszczenia tabeli</li>
+                <li>Przeciągnij pola do odpowiednich obszarów:
+                    <ul>
+                        <li>Filtry raportu - filtrowanie całej tabeli</li>
+                        <li>Etykiety wierszy - dane w wierszach</li>
+                        <li>Etykiety kolumn - dane w kolumnach</li>
+                        <li>Wartości - dane liczbowe do analizy</li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <h3>Aktualizacja tabeli przestawnej</h3>
+            <p>Po zmianie danych źródłowych: kliknij prawym przyciskiem myszy na tabeli → Odśwież</p>
+        </section>
+        
+        <section id="praktyczne-sztuczki" class="section">
+            <h2>7. PRAKTYCZNE SZTUCZKI</h2>
+            
+            <h3>Adresowanie bezwzględne i względne</h3>
+            <ul>
+                <li>A1 - adres względny (zmienia się przy kopiowaniu)</li>
+                <li>$A$1 - adres bezwzględny (nie zmienia się przy kopiowaniu)</li>
+                <li>$A1 - kolumna bezwzględna, wiersz względny</li>
+                <li>A$1 - kolumna względna, wiersz bezwzględny</li>
+            </ul>
+            
+            <h3>Autofiltry i sortowanie zaawansowane</h3>
+            <ul>
+                <li>Dane → Sortuj i filtruj → Sortowanie niestandardowe</li>
+                <li>Dane → Sortuj i filtruj → Filtr → Filtr zaawansowany</li>
+            </ul>
+            
+            <h3>Funkcje zagnieżdżone</h3>
+            <p>Przykład: <code>=JEŻELI(A1>90;"Celujący";JEŻELI(A1>75;"Bardzo dobry";JEŻELI(A1>50;"Dobry";"Niedostateczny")))</code></p>
+        </section>
+    </main>
+    
+    <div class="navigation-between-parts">
+        <a href="python.html">&laquo; Powrót do części 2</a>
+        <a href="access.html">Przejdź do części 4 &raquo;</a>
+    </div>
+    
+    <footer>
+        <p>Autor: Jan Piekło</p>
+        <p>&copy; 2023 Materiały do nauki informatyki na maturę</p>
+    </footer>
+</body>
+</html> 
